@@ -1,0 +1,42 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: $activatedProperties$
+
+  # i188n config
+  messages:
+    # Whether to always apply the MessageFormat rules, parsing even messages without arguments.
+    always-use-message-format: false
+    # Comma-separated list of basenames
+    basename: i18n/messages
+    # Loaded resource bundle files cache duration.
+    # When not set, bundles are cached forever.
+    # If a duration suffix is not specified, seconds will be used.
+    #    cache-duration: 10
+    # Message bundles encoding.
+    encoding: UTF-8
+    # Whether to fall back to the system Locale
+    # if no files for a specific Locale have been found.
+    fallback-to-system-locale: false
+    # Whether to use the message code as the default message instead of throwing a "NoSuchMessageException".
+    # Recommended during development only.
+    use-code-as-default-message: false
+
+jwt:
+  secret: VietDangProject
+  expiration: 18000 #5 * 60 * 60 (5 hours)
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.orm.jpa: DEBUG
+    org.springframework.transaction: DEBUG
+    org.hibernate.engine.transaction.internal.TransactionImpl: DEBUG
+
+
+s1:
+  baseUri: http://vdg.onesystem.vn:3540/api/vi/handheld
+  masterUri: http://vdg.onesystem.vn:3540/api/vi/handheld/masterdata
+  username: S1
+  password: sale1test

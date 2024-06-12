@@ -1,0 +1,27 @@
+version: "2"
+
+services:
+  vietdangdb:
+    env_file:
+      - .env
+    container_name: vietdangdb
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    image: mysql/mysql-server
+    ports:
+      - "3306:3306"
+    command: --init-file /data/application/init.sql
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./init.sql:/data/application/init.sql
+    restart: always
+    networks:
+      - vietdang_network
+
+networks:
+  vietdang_network:
+    external: true
+    name: vietdang_network

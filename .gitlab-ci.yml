@@ -1,0 +1,54 @@
+image: docker:19
+
+services:
+  - docker:dind
+
+stages:
+  - build
+#  - deploy
+
+before_script:
+  - docker version
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+build:
+  stage: build
+  tags:
+    - docker
+  only:
+    - test_cicd
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE:latest
+
+#deploy:
+#  stage: deploy
+#  variables:
+#    GIT_STRATEGY: none
+#  only:
+#    - master
+#  before_script:
+#    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+#    - eval $(ssh-agent -s)
+#    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+#    - mkdir -p ~/.ssh
+#    - chmod 700 ~/.ssh
+#    - echo "$SSH_SERVER_IP" >> ~/.ssh/known_hosts
+#    - chmod 644 ~/.ssh/known_hosts
+#    # Verify that key has been registered
+#    - ls ~/.ssh -al
+#
+#    # Verify server connection
+#    - echo "Ping server $SSH_SERVER_IP"
+#    - ping $SSH_SERVER_IP -c 5
+#  script:
+#    - >
+#      ssh $SSH_USER@$SSH_SERVER_IP
+#      "docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY};
+#      cd ${PATH_TO_PROJECT};
+#      docker-compose down;
+#      docker pull ${CI_REGISTRY_IMAGE}:latest;
+#      docker-compose up -d;
+#      docker image prune -f;"

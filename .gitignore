@@ -1,0 +1,65 @@
+*.sw?
+.#*
+*#
+*~
+target
+dependency-reduced-pom.xml
+*.sublime-*
+/scratch
+README.html
+*yarn.lock*
+src/main/resources/application-local.yml
+logs
+
+### Original ###
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+.DS_Store
+
+/bin/
+.vscode
+
+logging
+
+front-end/node_modules
+src/main/resources/public
+
+### Maven ###
+mvnw
+mvnw.cmd
+out/
+src/main/resources/public/
+.mvn/
+
+###Build Files###
+src/main/resources/public
+classes/
+src/main/public
+front-end/yarn.lock
+front-end/winpty.exe.stackdump
+.env.development
+src/main/resources/reports/*.jasper

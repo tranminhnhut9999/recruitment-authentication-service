@@ -1,0 +1,25 @@
+version: "2"
+
+services:
+  minio:
+    env_file:
+      - .env
+    container_name: minio
+    command: server /data --console-address ":9001"
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    image: quay.io/minio/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./data/minio:/data
+    restart: always
+    networks:
+      - vietdang_network
+
+networks:
+  vietdang_network:
+    external: true
+    name: vietdang_network

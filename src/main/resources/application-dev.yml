@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/recruitment-account-db?serverTimezone=UTC&cachePrepStmts=true&useServerPrepStmts=true&rewriteBatchedStatements=true
+    username: root
+    password: 123456789
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        jdbc:
+          batch_size: 50
+        order_updates: true
+        order_inserts: true
+
+logging:
+  file:
+    path: /logs
+    name: /logs/application.log
+
+minio:
+  buckek:
+    name: vietdang
+  access:
+    name: vietdang
+    secret: TNN8uXMSOtxOkWm
+  url: http://minio:9000
+  endpoint: https://beta.api.dentgo.vn
+
+s1:
+  username: S1
+  password: sale1test
+
+  baseUri: http://103.187.168.180:3550/api/vi/handheld
+  masterUri: http://103.187.168.180:3550/api/vi/handheld/masterdata
+  promotionUri: http://103.187.168.180:3550/api/vi/handheld/promotion
+  documentUri: http://103.187.168.180:3550api/vi/handheld/SalesOrder
+  contractUri: http://103.187.168.180:3550/api/vi/handheld/contract
+  reportUri: http://103.187.168.180:3550/api/vi/handheld/report

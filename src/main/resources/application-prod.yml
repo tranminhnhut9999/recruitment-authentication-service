@@ -1,0 +1,41 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    url: jdbc:mysql://${DATABASE_SERVER}:${DATABASE_SERVER_PORT}/${MYSQL_DATABASE}?serverTimezone=UTC&cachePrepStmts=true&useServerPrepStmts=true&rewriteBatchedStatements=true
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        jdbc:
+          batch_size: 30
+
+logging:
+  file:
+    path: /logs
+    name: /logs/application.log
+
+minio:
+  buckek:
+    name: vietdang
+  access:
+    name: ${MINIO_ROOT_USER}
+    secret: ${MINIO_ROOT_PASSWORD}
+  url: http://minio:9000
+  endpoint: ${HTTPS_DOMAIN}
+
+s1:
+  username: ${S1_USER_NAME}
+  password: ${S1_PASSWORD}
+
+  baseUri: ${BASE_URI}
+  masterUri: ${MASTER_URI}
+  promotionUri: ${PROMOTION_URI}
+  documentUri: ${DOCUMENT_URI}
+  contractUri: ${CONTRACT_URI}
+  reportUri: ${REPORT_URI}
