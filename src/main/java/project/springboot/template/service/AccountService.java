@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import project.springboot.template.config.constants.EAccountStatus;
 import project.springboot.template.config.constants.EEduLevel;
 import project.springboot.template.config.constants.EGender;
 import project.springboot.template.dto.request.ChangePasswordRequest;
@@ -95,5 +96,13 @@ public class AccountService {
         RoleResponse roleResponse = ObjectUtil.copyProperties(account.getRole(), new RoleResponse(), RoleResponse.class, true);
         profileResponse.setRole(roleResponse);
         return profileResponse;
+    }
+
+    public boolean changeAccountStatus(String email, EAccountStatus status){
+        Account changeAccount = this.accountRepository
+                .findByEmail(email).orElseThrow(() -> ApiException.create(HttpStatus.BAD_REQUEST).withMessage("Account not found with email:" + email));
+        changeAccount.setStatus(status);
+        this.accountRepository.save(changeAccount);
+        return true;
     }
 }

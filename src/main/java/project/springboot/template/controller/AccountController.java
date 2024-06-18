@@ -3,6 +3,7 @@ package project.springboot.template.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import project.springboot.template.dto.request.ChangeAccountStatusRequest;
 import project.springboot.template.dto.request.ChangePasswordRequest;
 import project.springboot.template.dto.request.RegisterRequest;
 import project.springboot.template.dto.response.ProfileResponse;
@@ -35,7 +36,11 @@ public class AccountController {
         }
     }
     // API: InActive and Active account
-
+    @PutMapping("/change-status")
+    public ResponseEntity<ApiResponse<String>> changeAccountStatus(ChangeAccountStatusRequest request){
+        this.accountService.changeAccountStatus(request.getEmail(),request.getStatus());
+        return ResponseEntity.ok(ApiResponse.success("change account status successful"));
+    }
     // API: Get Account Profile
     @GetMapping("/profile")
     public ResponseEntity<ApiResponse<ProfileResponse>> getProfileByUser() {
