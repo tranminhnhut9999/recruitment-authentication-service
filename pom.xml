@@ -15,7 +15,7 @@
     <description>Spring Boot Template Project</description>
     <properties>
         <java.version>11</java.version>
-        <start-class>project.springboot.template.SpringBootApplicationStarter</start-class>
+        <start-class>project.springboot.template.AuthenticationServiceStarter</start-class>
         <resource.delimiter>$</resource.delimiter>
         <skipTests>true</skipTests>
         <hibernate.version>5.6.10.Final</hibernate.version>

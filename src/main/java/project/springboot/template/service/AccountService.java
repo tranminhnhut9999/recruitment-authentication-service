@@ -20,6 +20,8 @@ import project.springboot.template.util.ObjectUtil;
 import project.springboot.template.util.SecurityUtil;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -104,5 +106,11 @@ public class AccountService {
         changeAccount.setStatus(status);
         this.accountRepository.save(changeAccount);
         return true;
+    }
+
+    public List<ProfileResponse> getAccountByRole(String roleCode){
+        List<Account> accountsWithRole = this.accountRepository.findByRole_Code(roleCode);
+        return accountsWithRole.stream()
+                .map(a -> ObjectUtil.copyProperties(a, new ProfileResponse(), ProfileResponse.class, true)).collect(Collectors.toList());
     }
 }

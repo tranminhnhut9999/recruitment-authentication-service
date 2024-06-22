@@ -30,12 +30,12 @@ import java.util.List;
         bearerFormat = "JWT",
         scheme = "bearer"
 )
-public class SpringBootApplicationStarter {
+public class AuthenticationServiceStarter {
     private final RoleRepository roleRepository;
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public SpringBootApplicationStarter(RoleRepository roleRepository, AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
+    public AuthenticationServiceStarter(RoleRepository roleRepository, AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
         this.roleRepository = roleRepository;
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
@@ -43,7 +43,7 @@ public class SpringBootApplicationStarter {
 
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootApplicationStarter.class, args);
+        SpringApplication.run(AuthenticationServiceStarter.class, args);
     }
 
     @EventListener(ApplicationReadyEvent.class)

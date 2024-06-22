@@ -5,6 +5,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,9 @@ public class JwtService {
         } catch (DisabledException e) {
             throw ApiException.create(HttpStatus.FORBIDDEN).withMessage("account was locked");
         } catch (BadCredentialsException e) {
-            throw ApiException.create(HttpStatus.FORBIDDEN).withMessage("user name or password is incorrec");
+            throw ApiException.create(HttpStatus.FORBIDDEN).withMessage("user name or password is incorrect");
+        } catch (AuthenticationException e) {
+            throw ApiException.create(HttpStatus.FORBIDDEN).withMessage("Invalid username or password");
         }
         final UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(request.getUsername());
         Account account = userDetails.getAccount();

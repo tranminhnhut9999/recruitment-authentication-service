@@ -10,6 +10,8 @@ import project.springboot.template.dto.response.ProfileResponse;
 import project.springboot.template.entity.common.ApiResponse;
 import project.springboot.template.service.AccountService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/accounts")
 @RequiredArgsConstructor
@@ -58,5 +60,10 @@ public class AccountController {
     @GetMapping("/verify")
     public ResponseEntity<ApiResponse<Boolean>> verifyUser() {
         return ResponseEntity.ok(ApiResponse.success(true));
+    }
+
+    @GetMapping("/recruiters")
+    public ResponseEntity<ApiResponse<List<ProfileResponse>>> getRecruiters() {
+        return ResponseEntity.ok(ApiResponse.success(this.accountService.getAccountByRole("HR_STAFF")));
     }
 }
